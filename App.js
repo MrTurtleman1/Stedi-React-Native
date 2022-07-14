@@ -1,18 +1,23 @@
-import React from 'react';
+import {useState} from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Counter from './Counter.js';
+import Login from './Login.js';
 import SettingsScreen from './SettingsScreen.js';
 import Home from './Home.js';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 
 // import Icons from "./Icons";
 const Tab = createMaterialBottomTabNavigator();
 
-export default function App() {
+export default function App(props) {
+const [userLoggedIn, setUserLoggedIn] = useState(false);
+const [userName, setUserName] = useState("");//state variable
+
+if (userLoggedIn){
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -22,7 +27,8 @@ export default function App() {
       >
         <Tab.Screen
           name='Home'
-          component={Home}
+          children={()=><Home loggedInUser={userName}/>}
+      //    component={Home}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
@@ -53,8 +59,13 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
   );
+        }
+else {
 
-
+return(
+  <Login setUserLoggedIn={setUserLoggedIn} setUserName={setUserName}/>
+)
+}
 }
 
 

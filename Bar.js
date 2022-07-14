@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
 import AppName from "./AppName";
-import Setting from "./Setting";
+import Setting from "./Setting";//setting-parent
 
 function Bar(props) {
+    console.log(props.loggedInUser);
     return(
         <View style={styles.bar}>
             <AppName />
-            <Setting loggedInUser={props.loggedInUser}/>  
+            <Setting loggedInUser = {props.loggedInUser}/>  
         </View>
     )
   }
